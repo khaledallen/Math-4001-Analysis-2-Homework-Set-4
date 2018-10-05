@@ -208,7 +208,7 @@ Given is the function $F(x,y)=x^2+xy+y^2-3.$ Show that $y=f(x)$ in a neighborhoo
 \end{problem}
 
 \begin{proof}
-Let $\Omega\subset\R^2$. By the IFT, if $F(x,y)=0$ for some $(x,y)\in\Omega$ and the partial derivatives $\frac{\partial F}{\partial x}$ are continuous in a neighborhood around that point, then there exists some $f(x)$ such that $f(x)=y$ and $F(x,f(x))=0$. So we seek to show that $F(x,y)=0$ at $(1,1)$ and that $J$ is not $0$ at (1,1). 
+Let $\Omega\subset\R^2$ be a set that contains $(1,1)$. By the IFT, if $F(x,y)=0$ for some $(x,y)\in\Omega$ and the partial derivatives $\frac{\partial F}{\partial x}$ are continuous in a neighborhood around that point, then there exists some $f(x)$ such that $f(x)=y$ and $F(x,f(x))=0$. So we seek to show that $F(x,y)=0$ at $(1,1)$ and that $J$ is not $0$ at (1,1). 
     \[F(1,1)=(1)^2+1\cdot1+(1)^2-3=3-3=0\]
     \[\frac{\partial F}{\partial y}(1,1) = \left.x+2y\right|_{(1,1)}=1+2=3\not=0\]
 Thus, by the Implicit Function Theorem, there exists a function $f(x)$ such that $y=f(x)$ in a neighborhood around $(1,1)$. For a larger domain, we can note that, as long as both $x$ and $y$ are not both $0$, the derivative is nonzero. There are some additional restrictions, noting that 
