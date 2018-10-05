@@ -14,6 +14,7 @@
 \newcommand{\bvec}[1]{\textbf{#1}}
 \renewcommand\labelenumi{\theenumi)}
 \renewcommand{\theenumi}{\alph{enumi}}
+\newcommand{\partialD}[2]{\frac{\partial #1}{\partial #2}}
  
 \newenvironment{problem}[2][Problem]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
@@ -199,7 +200,105 @@ x_1 \\x_2\\x_3
             \frac{\partial g}{\partial v}
         }
     \]
-    \vspace{6in}
+
+    To show $\frac{\partial F}{\partial x}=\frac{1}{J}\frac{\partial g}{\partial v}$, first we calculate $J$
+    \[
+        J=\begin{vmatrix}
+            \frac{\partial f}{\partial u} & \frac{\partial f}{\partial v} \\
+            \frac{\partial g}{\partial u} & \frac{\partial g}{\partial v}
+        \end{vmatrix} =\frac{\partial f}{\partial u}\frac{\partial g}{\partial v} - \frac{\partial f}{\partial v}\frac{\partial g}{\partial u} 
+    \]
+
+    Note also the following by chain rule:
+
+    \[\partialD{x}{x}=1=\partialD{f}{u}\partialD{u}{x} +\frac{\partial f}{\partial v}\frac{\partial v}{\partial x}\]
+    Since $u=F(x,y)$, we can also express the above expression in the following way:
+    \[\partialD{x}{x}=1=\partialD{f}{u}\partialD{F}{x} +\partialD{f}{v}\partialD{G}{x}\]
+    Similarly, we have 
+    \[
+        \partialD{y}{x}=0=\partialD{y}{u}\partialD{F}{x}+\partialD{g}{v}\partialD{G}{x}    
+    \]
+
+    Note that each line is equivalent to the result of multiplying the vector $\begin{bmatrix}\partialD{F}{x} \\ \partialD{G}{x} \end{bmatrix}$ with the Jacobian Matrix.
+    So we have a system of equations we may use to solve for the given vector via Cramer's Rule:
+    \[
+        \begin{bmatrix}
+            \frac{\partial f}{\partial u} & \frac{\partial f}{\partial v} \\
+            \frac{\partial g}{\partial u} & \frac{\partial g}{\partial v} 
+        \end{bmatrix}
+        \begin{bmatrix}
+           \partialD{F}{x} \\ \partialD{G}{x} 
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+           1 \\ 0 
+        \end{bmatrix}
+    \]
+    \[
+    \partialD{F}{x}=\frac{\begin{vmatrix}
+       1 & \partialD{f}{v} \\ 0 & \partialD{g}{v} 
+    \end{vmatrix}}{J}=
+    \frac{1}{J}\partialD{g}{v}
+    \]
+    \[
+    \partialD{G}{x}=\frac{\begin{vmatrix}
+       \partialD{f}{u} & 1 \\ \partialD{g}{u} & 0  
+    \end{vmatrix}}{J}=
+    -\frac{1}{J}\partialD{g}{u}
+    \]
+
+    Similarly, we can solve for the other two components:
+    \[\partialD{y}{y}=1=\partialD{g}{u}\partialD{F}{y}+\partialD{g}{v}\partialD{G}{y}\]
+    \[\partialD{x}{y}=0=\partialD{f}{u}\partialD{F}{y}+\partialD{f}{v}\partialD{G}{y}\]
+    \[
+        \begin{bmatrix}
+            \frac{\partial f}{\partial u} & \frac{\partial f}{\partial v} \\
+            \frac{\partial g}{\partial u} & \frac{\partial g}{\partial v} 
+        \end{bmatrix}
+        \begin{bmatrix}
+           \partialD{F}{y} \\ \partialD{G}{y} 
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+           0 \\ 1 
+        \end{bmatrix}
+    \]
+    \[
+    \partialD{F}{y}=\frac{\begin{vmatrix}
+       0 & \partialD{f}{v} \\ 1 & \partialD{g}{v} 
+    \end{vmatrix}}{J}=
+    -\frac{1}{J}\partialD{f}{v}
+    \]
+    \[
+    \partialD{G}{y}=\frac{\begin{vmatrix}
+       \partialD{f}{u} & 0 \\ \partialD{g}{u} & 1  
+    \end{vmatrix}}{J}=
+    \frac{1}{J}\partialD{f}{u}
+    \]
+    \item Given that $f(u,v)=u^2-v^2, g(u,v)=2uv$, we have
+    \[
+    J=\begin{vmatrix}
+      \partialD{f}{u} & \partialD{f}{v} \\ \partialD{g}{u} & \partialD{g}{v}  
+    \end{vmatrix}=
+    \begin{vmatrix}
+      2u & -2v \\ 2v & 2u
+    \end{vmatrix} = 4u^2+4v^2
+    \] 
+   We obtain the partial derivatives at (1,1) as
+    \[\partialD{F}{x}=\frac{1}{J}\partialD{g}{v}=\frac{1}{4u^2+4v^2}2u=\frac{u}{2u^2+2v^2}\]
+    \[\partialD{F}{y}=-\frac{1}{J}\partialD{f}{v}=-\frac{1}{4u^2+4v^2}(-2v)=\frac{v}{2u^2+2v^2}\]
+    \[\partialD{G}{x}=-\frac{1}{J}\partialD{g}{u}=\frac{1}{4u^2+4v^2}2v=-\frac{v}{2u^2+2v^2}\]
+    \[\partialD{G}{y}=\frac{1}{J}\partialD{f}{u}=\frac{1}{4u^2+4v^2}2u=\frac{u}{2u^2+2v^2}\]
+
+    At $(x_0,y_0)=(1,1)$, we have $u^2-v^2=1, 2uv=1$, so solving for $u$ and $v$ we get 
+    \[u=\pm\sqrt{1\pm\sqrt{\frac{1\pm\sqrt{2}}{2}}}\]
+    \[v=\pm\sqrt{\frac{-1\pm\sqrt{2}}2}\]
+    Plugging these into the partials gives
+    \[\partialD{F}{x}=\frac{\pm\sqrt{1\pm\sqrt{\frac{1\pm\sqrt{2}}{2}}}}{1\pm2\sqrt{\frac{1\pm\sqrt{2}}{2}}\pm\sqrt{2}}\]
+    \[\partialD{F}{y}=\frac{\pm\sqrt{\frac{-1\pm\sqrt{2}}2}}{1\pm2\sqrt{\frac{1\pm\sqrt{2}}{2}}\pm\sqrt{2}}\]
+    \[\partialD{G}{x}=-\frac{\pm\sqrt{\frac{-1\pm\sqrt{2}}2}}{1\pm2\sqrt{\frac{1\pm\sqrt{2}}{2}}\pm\sqrt{2}}\]
+    \[\partialD{G}{y}=\frac{\pm\sqrt{1\pm\sqrt{\frac{1\pm\sqrt{2}}{2}}}}{1\pm2\sqrt{\frac{1\pm\sqrt{2}}{2}}\pm\sqrt{2}}\]
+
 \end{enumerate}
 \end{proof}
 
